@@ -1,4 +1,4 @@
-package edu.awieclawski.con;
+package edu.awieclawski.con.utils;
 
 import java.net.ConnectException;
 import java.net.Socket;

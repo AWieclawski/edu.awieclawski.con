@@ -3,27 +3,23 @@ package edu.awieclawski.con.utils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 
 public class ParameterStringBuilder {
-//	private final static Logger LOGGER = Logger.getLogger(ParameterStringBuilder.class.getName());
 
-	public static String getParamsString(Map<String, String> params) throws UnsupportedEncodingException {
+	public String getParamsString(Map<String, String> params) throws UnsupportedEncodingException {
 		StringBuilder result = new StringBuilder();
+		String charEncoding = "UTF-8";
 
 		for (Map.Entry<String, String> entry : params.entrySet()) {
-			result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+			result.append(URLEncoder.encode(entry.getKey(), charEncoding));
 			result.append("=");
-			result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+			result.append(URLEncoder.encode(entry.getValue(), charEncoding));
 			result.append("&");
 		}
 
 		String resultString = result.toString();
-		// removes last "&" char
+		// removes last "&" String
 		resultString = resultString.length() > 0 ? resultString.substring(0, resultString.length() - 1) : resultString;
-
-//		LOGGER.log(Level.WARNING, "resultString=" + resultString);
 
 		return resultString;
 	}
