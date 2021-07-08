@@ -8,14 +8,10 @@ import java.util.List;
 public class FullResponseBuilder {
 
 	private ResponseReader responseReader;
-	private String fullResponse;
-
-	public String getFullResponse() {
-		return fullResponse;
-	}
-
-	public void setFullResponse(String fullResponse) {
-		this.fullResponse = fullResponse;
+	private String responseHeader;
+	
+	public String getResponseHeader() {
+		return responseHeader;
 	}
 
 	public ResponseReader getResponseReader() {
@@ -51,14 +47,9 @@ public class FullResponseBuilder {
 			}
 			fullResponseBuilder.append("\n");
 		});
-
-		// read response content and initialize ResponseReader
+		
+		responseHeader = fullResponseBuilder.toString();
 		responseReader = new ResponseReader().getResponseReaderFromConnection(con);
-		// set ResponseReader field
-		setResponseReader(responseReader);
-		// set fullResponse field
-		fullResponseBuilder.append(responseReader.getResponseBody());
-		setFullResponse(fullResponseBuilder.toString());
 
 		return this;
 	}

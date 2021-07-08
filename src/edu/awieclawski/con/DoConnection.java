@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.awieclawski.con.ctrl.ConnectionController;
+import edu.awieclawski.con.ctr.ConnectionController;
 import edu.awieclawski.con.exc.DataMissingException;
-import edu.awieclawski.con.utils.ConnChecker;
-import edu.awieclawski.con.utils.ParameterStringBuilder;
+import edu.awieclawski.con.utl.ConnChecker;
+import edu.awieclawski.con.utl.ParameterStringBuilder;
 
 /**
  * Simple JAVA HTTP connection
@@ -60,8 +60,8 @@ public class DoConnection {
 				
 
 			}
-			LOGGER.log(Level.WARNING, " * Full response *\n" + connController.getFullResponse());
-			System.out.println(" * Response Body *\n" + response);
+			LOGGER.log(Level.WARNING, "\n * Full response *\n" + connController.getFullResponse());
+			System.out.println("\n * Response Body *\n" + response);
 		}
 
 	}

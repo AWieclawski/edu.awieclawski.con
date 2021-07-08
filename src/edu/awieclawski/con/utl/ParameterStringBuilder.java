@@ -1,4 +1,4 @@
-package edu.awieclawski.con.utils;
+package edu.awieclawski.con.utl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -18,7 +18,7 @@ public class ParameterStringBuilder {
 		}
 
 		String resultString = result.toString();
-		// removes last "&" String
+		// removes last "&" String or any other
 		resultString = resultString.length() > 0 ? resultString.substring(0, resultString.length() - 1) : resultString;
 
 		return resultString;

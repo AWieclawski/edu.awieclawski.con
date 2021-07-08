@@ -1,4 +1,4 @@
-package edu.awieclawski.con.mdl;
+package edu.awieclawski.con.con;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

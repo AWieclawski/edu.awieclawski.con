@@ -10,10 +10,6 @@ public class ResponseReader {
 
 	private String responseBody;
 
-	public void setResponseBody(String responseBody) {
-		this.responseBody = responseBody;
-	}
-
 	public String getResponseBody() {
 		return responseBody;
 	}
@@ -40,9 +36,7 @@ public class ResponseReader {
 		in.close();
 		connection.disconnect();
 
-		// set responseBody field
-		String strContent = content.toString();
-		setResponseBody(strContent);
+		responseBody = content.toString();
 
 		return this;
 	}

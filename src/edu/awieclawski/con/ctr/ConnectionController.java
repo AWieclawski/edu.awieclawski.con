@@ -1,13 +1,13 @@
-package edu.awieclawski.con.ctrl;
+package edu.awieclawski.con.ctr;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 
-import edu.awieclawski.con.conf.ConnConfig;
+import edu.awieclawski.con.con.Connection;
+import edu.awieclawski.con.con.ConnectionConfig;
 import edu.awieclawski.con.exc.DataMissingException;
-import edu.awieclawski.con.mdl.Connection;
 import edu.awieclawski.con.res.FullResponseBuilder;
 
 public class ConnectionController {
@@ -31,7 +31,7 @@ public class ConnectionController {
 		HttpURLConnection connection = null;
 
 		Connection newConn = new Connection();
-		ConnConfig newConf = new ConnConfig();
+		ConnectionConfig newConf = new ConnectionConfig();
 
 		try {
 			connection = newConn.getConnection(fullUrl);
@@ -81,7 +81,7 @@ public class ConnectionController {
 		FullResponseBuilder fullResponseBuilder = new FullResponseBuilder()
 				.getFullResponseBuilderFromConnection(connection);
 
-		setFullResponse(fullResponseBuilder.getFullResponse());
+		setFullResponse(fullResponseBuilder.getResponseHeader()+fullResponseBuilder.getResponseReader().getResponseBody());
 		setResponse(fullResponseBuilder.getResponseReader().getResponseBody());
 	}
 
@@ -103,7 +103,7 @@ public class ConnectionController {
 
 			con = new Connection().getConnection(location);
 
-			con = new ConnConfig().setConnConfig(con, con.getConnectTimeout(), con.getContentType(),
+			con = new ConnectionConfig().setConnConfig(con, con.getConnectTimeout(), con.getContentType(),
 					con.getRequestMethod(), con.getInstanceFollowRedirects());
 
 		}

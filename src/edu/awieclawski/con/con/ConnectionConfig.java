@@ -1,9 +1,9 @@
-package edu.awieclawski.con.conf;
+package edu.awieclawski.con.con;
 
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 
-public class ConnConfig {
+public class ConnectionConfig {
 
 	private int timeOut;
 	private String contentType;
