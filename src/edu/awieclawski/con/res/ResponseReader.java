@@ -6,37 +6,35 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 
-public class ResponseReader {
+import edu.awieclawski.con.dao.I_Response;
+
+public class ResponseReader implements I_Response {
 
 	private String responseBody;
 
+	@Override
 	public String getResponseBody() {
 		return responseBody;
 	}
 
-	/**
-	 * 
-	 * @param connection
-	 * @return
-	 * @throws IOException
-	 */
+	@Override
 	public ResponseReader getResponseReaderFromConnection(HttpURLConnection connection) throws IOException {
 		BufferedReader in = null;
 		Reader streamReader = null;
+		String inputLine = null;
+//		StringBuffer content = new StringBuffer();
 
 		streamReader = new InputStreamReader(connection.getInputStream());
 		in = new BufferedReader(streamReader);
-		String inputLine = "";
-		StringBuffer content = new StringBuffer();
 
 		while ((inputLine = in.readLine()) != null) {
-			content.append(inputLine);
+			CONTENT.append(inputLine);
 		}
 
 		in.close();
 		connection.disconnect();
 
-		responseBody = content.toString();
+		responseBody = CONTENT.toString();
 
 		return this;
 	}

@@ -5,52 +5,61 @@ import java.net.HttpURLConnection;
 import java.util.Iterator;
 import java.util.List;
 
-public class FullResponseBuilder {
+import edu.awieclawski.con.dao.I_FullResponse;
+
+public class FullResponseBuilder implements I_FullResponse {
 
 	private ResponseReader responseReader;
 	private String responseHeader;
-	
+
+	@Override
 	public String getResponseHeader() {
 		return responseHeader;
 	}
 
+	@Override
 	public ResponseReader getResponseReader() {
 		return responseReader;
 	}
 
+	@Override
 	public void setResponseReader(ResponseReader responseReader) {
 		this.responseReader = responseReader;
 	}
 
-	/**
-	 * 
-	 * @param con
-	 * @return
-	 * @throws IOException
-	 */
+	@Override
 	public FullResponseBuilder getFullResponseBuilderFromConnection(HttpURLConnection con) throws IOException {
-		StringBuilder fullResponseBuilder = new StringBuilder();
 
 		// read status and message
-		fullResponseBuilder.append(con.getResponseCode()).append(" ").append(con.getResponseMessage()).append("\n");
+		FULL_CONTENT.append(con.getResponseCode()).append(SPACE).append(con.getResponseMessage()).append(NEXT_LINE);
 
 		// read headers
 		con.getHeaderFields().entrySet().stream().filter(entry -> entry.getKey() != null).forEach(entry -> {
-			fullResponseBuilder.append(entry.getKey()).append(": ");
+			FULL_CONTENT.append(entry.getKey()).append(COLON);
 			List<?> headerValues = entry.getValue();
 			Iterator<?> it = headerValues.iterator();
 			if (it.hasNext()) {
-				fullResponseBuilder.append(it.next());
+				FULL_CONTENT.append(it.next());
 				while (it.hasNext()) {
-					fullResponseBuilder.append(", ").append(it.next());
+					FULL_CONTENT.append(COMMA).append(it.next());
 				}
 			}
-			fullResponseBuilder.append("\n");
+			FULL_CONTENT.append(NEXT_LINE);
 		});
-		
-		responseHeader = fullResponseBuilder.toString();
-		responseReader = new ResponseReader().getResponseReaderFromConnection(con);
+
+		responseHeader = FULL_CONTENT.toString();
+		responseReader = getResponseReaderFromConnection(con);
 
 		return this;
+	}
+
+	@Override
+	public String getResponseBody() {
+		return getResponseReader().getResponseBody();
+	}
+
+	@Override
+	public ResponseReader getResponseReaderFromConnection(HttpURLConnection connection) throws IOException {
+		return new ResponseReader().getResponseReaderFromConnection(connection);
 	}
 }

@@ -7,8 +7,9 @@ import java.net.ProtocolException;
 
 import edu.awieclawski.con.con.Connection;
 import edu.awieclawski.con.con.ConnectionConfig;
-import edu.awieclawski.con.exc.DataMissingException;
+import edu.awieclawski.con.dao.I_FullResponse;
 import edu.awieclawski.con.res.FullResponseBuilder;
+import edu.awieclawski.con.exc.DataMissingException;
 
 public class ConnectionController {
 
@@ -78,11 +79,9 @@ public class ConnectionController {
 	 * @throws IOException
 	 */
 	private void setAllResponseFields(HttpURLConnection connection) throws IOException {
-		FullResponseBuilder fullResponseBuilder = new FullResponseBuilder()
-				.getFullResponseBuilderFromConnection(connection);
-
-		setFullResponse(fullResponseBuilder.getResponseHeader()+fullResponseBuilder.getResponseReader().getResponseBody());
-		setResponse(fullResponseBuilder.getResponseReader().getResponseBody());
+		I_FullResponse fullResponseBuilder = new FullResponseBuilder().getFullResponseBuilderFromConnection(connection);
+		response = fullResponseBuilder.getResponseBody();
+		fullResponse = fullResponseBuilder.getResponseHeader() + response;
 	}
 
 	/**
@@ -114,16 +113,8 @@ public class ConnectionController {
 		return fullResponse;
 	}
 
-	public void setFullResponse(String fullResponse) {
-		this.fullResponse = fullResponse;
-	}
-
 	public String getResponse() {
 		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
 	}
 
 }
