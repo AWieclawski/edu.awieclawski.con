@@ -11,5 +11,9 @@ target
 target/
 target/*
 target/*.*
+out
+out/
+out/*
+out/*.*
 .classpath
 .project
